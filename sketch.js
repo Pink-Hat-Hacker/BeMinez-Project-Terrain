@@ -72,21 +72,22 @@ function draw() {
   for (var y = 0; y < rows; y++) {
     var xoff = 0;
     for (var x = 0; x < cols; x++) {
-      terrain[x][y] = map(level,noise(xoff, yoff), 0, 10, -100, 100);
+      terrain[x][y] = map(level,noise(xoff, yoff), 0, 20, -100, 100);
       xoff += 0.2;
     }
-    yoff += 0.2;
+    yoff += 0.3;
   }
 
 
   
   background(0);
   
+  //stroke(0);
   stroke(174, 186, 191);
   
   translate(0, 50);
-  rotateX(PI/2.3);
-  //fill(200,200,200, 50);
+  rotateX(PI/2.5);
+  //fill(200,200,200, 100);
   translate(-w/2, -h/2);
   
   //color, angle, plain development 
