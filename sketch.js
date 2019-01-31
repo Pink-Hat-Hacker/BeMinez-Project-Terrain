@@ -67,15 +67,15 @@ function draw() {
     //var size = map(level,0,.5,0,200);
     
     // using the flying effect, combining Noise and Amplitude 
-  hover -= 0.1;
+  hover -= 0.05;
   var yoff = hover;
   for (var y = 0; y < rows; y++) {
     var xoff = 0;
     for (var x = 0; x < cols; x++) {
-      terrain[x][y] = map(level,noise(xoff, yoff), 0, 20, -100, 100);
-      xoff += 0.2;
+      terrain[x][y] = map(level,noise(xoff, yoff), 0, 10, -150, 100);
+      xoff += 0.1;
     }
-    yoff += 0.3;
+    yoff += 0.2;
   }
 
 
@@ -87,12 +87,13 @@ function draw() {
   
   translate(0, 50);
   rotateX(PI/2.5);
-  //fill(200,200,200, 100);
+  //fill(random(50,200),random(40,250),random(200,255), 100);
   translate(-w/2, -h/2);
   
   //color, angle, plain development 
   for (var y = 0; y < rows-1; y++) {
-    fill(random(50,200),random(40,250),random(200,255), 100);
+    //fill(random(60,180),random(50,255),random(130,255), 100);
+    fill(random(60,180), random(160,255), 255, 100);
     beginShape(TRIANGLE_STRIP);
     for (var x = 0; x < cols; x++) {
       vertex(x*scl, y*scl, terrain[x][y]);
