@@ -80,10 +80,10 @@ function draw() {
 
 
   
-  background(0);
+  background(0,0,0,230);
   
-  
-  stroke(100,100,100);
+  stroke(179, 187, 188);
+  //stroke(150,150,150);
   //noFill();
   
   translate(0, 50);
