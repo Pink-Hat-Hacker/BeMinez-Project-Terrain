@@ -57,7 +57,7 @@ function setup() {
   for (var x = 0; x < cols; x++) {
     terrain[x] = [];
     for (var y = 0; y < rows; y++) {
-      terrain[x][y] = 0; //specify a default value for now
+      terrain[x][y] = 0; //specify a default value 
     }
   }
 }
@@ -66,13 +66,13 @@ function draw() {
     var level= amplitude.getLevel();
     //var size = map(level,0,.5,0,200);
     
-    
+    // using the flying effect, combining Noise and Amplitude 
   hover -= 0.1;
   var yoff = hover;
   for (var y = 0; y < rows; y++) {
     var xoff = 0;
     for (var x = 0; x < cols; x++) {
-      terrain[x][y] = map(level,noise(xoff, yoff), 0, 1, -100, 100);
+      terrain[x][y] = map(level,noise(xoff, yoff), 0, 10, -100, 100);
       xoff += 0.2;
     }
     yoff += 0.2;
@@ -80,16 +80,16 @@ function draw() {
 
 
   
-  background(0,0,0,230);
+  background(0);
   
-  stroke(179, 187, 188);
-  //stroke(150,150,150);
-  //noFill();
+  stroke(174, 186, 191);
   
   translate(0, 50);
-  rotateX(PI/3);
-  //fill(random(50,200),random(40,250),random(200,255), 70);
+  rotateX(PI/2.3);
+  //fill(200,200,200, 50);
   translate(-w/2, -h/2);
+  
+  //color, angle, plain development 
   for (var y = 0; y < rows-1; y++) {
     fill(random(50,200),random(40,250),random(200,255), 100);
     beginShape(TRIANGLE_STRIP);
