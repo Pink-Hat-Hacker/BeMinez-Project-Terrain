@@ -73,7 +73,7 @@ function draw() {
     var xoff = 0;
     for (var x = 0; x < cols; x++) {
       terrain[x][y] = map(level,noise(xoff, yoff), 0, 10, -150, 100);
-      xoff += 0.1;
+      xoff += 0.2;
     }
     yoff += 0.2;
   }
