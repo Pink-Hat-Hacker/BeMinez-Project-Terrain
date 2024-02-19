@@ -10,6 +10,15 @@
  */
 
 var song;
+var songs = [
+  "be-minez",
+  "shut-down-entirely",
+  "still-goin",
+  "take-me-home",
+  "untrust-us",
+  "you-werent-there-anymore",
+];
+var amplitude;
 
 var cols, rows;
 var scl = 15;
@@ -21,14 +30,16 @@ var terrain = [];
 let backgroundColorPicker;
 
 function preload() {
-  song = loadSound("be-minez.mp3");
+  // Load all the songs
+  for (var i = 0; i < songs.length; i++) {
+    songs[i] = loadSound("music/" + songs[i] + ".mp3");
+  }
+  console.log(songs);
 }
 
 function setup() {
   createCanvas(800, 800, WEBGL);
-  song.play();
   amplitude = new p5.Amplitude();
-  amplitude.setInput(song);
 
   // Customize the Canvas and Terrain function
   initializeGUI();
@@ -45,6 +56,21 @@ function draw() {
   updateTerrain();
   displayTerrain();
 }
+
+function playSong(index) {
+  // Stop the current song if it's playing
+  if (song) {
+    if (song.isPlaying()) {
+      song.stop();
+    }
+  }
+  // Load and play the selected song
+  song = songs[index];
+  console.log(song);
+  song.play();
+  amplitude.setInput(song);
+}
+
 
 function initializeGUI() {
   /**
@@ -79,10 +105,14 @@ function initializeGUI() {
   hsText.position(850, 100);
 
   // Z-axis Highest Peak and Lowest Trough inputs
-  pAndtInput = createInput(30);
+  pAndtInput = createInput("30");
   pAndtInput.position(1050, 140);
   pAtText = createP("Highest Peak and Lowest Trough Value");
   pAtText.position(1050, 100);
+
+  for (let i = 0; i < songs.length; i++) {
+    createButton(songs[i].file, songs[i].file).position(850, 180 + i * 40).mousePressed(selectedSong(i));
+  }
 }
 
 function initializeTerrain(cols, rows) {
@@ -151,4 +181,8 @@ function displayTerrain() {
     }
     endShape();
   }
+}
+
+function selectedSong(index) {
+  return function() {playSong(index);}
 }
