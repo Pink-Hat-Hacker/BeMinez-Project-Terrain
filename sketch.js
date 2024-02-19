@@ -25,7 +25,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 600, WEBGL);
+  createCanvas(800, 800, WEBGL);
   song.play();
   amplitude = new p5.Amplitude();
   amplitude.setInput(song);
@@ -41,31 +41,31 @@ function setup() {
 
   // BackgroundColorPicker Module and Text
   backgroundColorPicker = createColorPicker("black");
-  backgroundColorPicker.position(10, 640);
+  backgroundColorPicker.position(850, 40);
   bcpText = createP("Background Color Picker");
-  bcpText.position(10, 600);
+  bcpText.position(850, 0);
 
   // Terrain RGB Sliders and Text
   redSlider = createSlider(0, 255, 0);
-  redSlider.position(200, 640);
+  redSlider.position(1050, 40);
   greenSlider = createSlider(0, 255, 0);
-  greenSlider.position(200, 660);
+  greenSlider.position(1050, 60);
   blueSlider = createSlider(0, 255, 0);
-  blueSlider.position(200, 680);
+  blueSlider.position(1050, 80);
   tcpText = createP("Random RGB Terrain Color Picker (kinda)");
-  tcpText.position(200, 600);
+  tcpText.position(1050, 0);
 
   // Hover Speed Slider and Text
   hoverSlider = createSlider(0, 3, 0.05, 0.01);
-  hoverSlider.position(10, 740);
+  hoverSlider.position(850, 140);
   hsText = createP("Hover Speed Slider");
-  hsText.position(10, 700);
+  hsText.position(850,100);
 
   // Z-axis Highest Peak and Lowest Trough inputs
-  pAndtInput = createInput(50);
-  pAndtInput.position(200, 740);
+  pAndtInput = createInput(30);
+  pAndtInput.position(1050, 140);
   pAtText = createP("Highest Peak and Lowest Trough Value");
-  pAtText.position(200, 700);
+  pAtText.position(1050, 100);
 
   cols = w / scl;
   rows = h / scl;
@@ -115,9 +115,9 @@ function draw() {
    * rotate X-Axis to make grid look 3D
    * move grid to center
    */
-  stroke("gray");
+  stroke('#ededed');
   rotateX(PI / 2.5);
-  translate(-w / 2, -h / 2);
+  translate(-w / 2, -h/2 + 100, 50);
   for (var y = 0; y < rows - 1; y++) {
     // filling terrain color using rgb sliders
     fill(
