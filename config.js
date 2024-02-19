@@ -1,2 +1,0 @@
-export const spotifySDKtoken =
-  "BQAOY-miONwo-exhdkdf9VnX47dE-OiD85kqDaAxWIZrvaAhttetSl_hwDk2awkQWJHyqiZN7Fq01CxSMriXQzBNfiVPA63Gy-PYgXUTv7WCYMf1sJ8nSQHJoGVPHNQLPXglPtVhva1_tvTe_McwDV-gSJUFtXbYIB6qItSXyMWwXwqXhNFVkbc2zo_GcQF80W3rCcNVzcwEUgQ";
