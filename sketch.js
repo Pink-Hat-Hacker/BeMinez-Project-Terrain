@@ -10,6 +10,8 @@
  */
 
 var song;
+var iframe;
+var canvas;
 
 var cols, rows;
 var scl = 15;
@@ -25,7 +27,9 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(800, 800, WEBGL);
+  canvas = createCanvas(800, 800, WEBGL);
+  canvas.parent('spotifyContainer');
+
   song.play();
   amplitude = new p5.Amplitude();
   amplitude.setInput(song);
@@ -59,13 +63,16 @@ function setup() {
   hoverSlider = createSlider(0, 3, 0.05, 0.01);
   hoverSlider.position(850, 140);
   hsText = createP("Hover Speed Slider");
-  hsText.position(850,100);
+  hsText.position(850, 100);
 
   // Z-axis Highest Peak and Lowest Trough inputs
-  pAndtInput = createInput(30);
+  pAndtInput = createInput("30");
   pAndtInput.position(1050, 140);
   pAtText = createP("Highest Peak and Lowest Trough Value");
   pAtText.position(1050, 100);
+
+  //spotify embed
+  openSpotify();
 
   cols = w / scl;
   rows = h / scl;
@@ -80,10 +87,10 @@ function setup() {
 
 function draw() {
   background(backgroundColorPicker.color());
-  
+
   /**
    * Moving the terrain based on Hover Speed and Music Amplitude
-   * 
+   *
    * get amplitude level
    * get and change hover speed value from slider (flying effect)
    * smooth the terrain using perlin noise()
@@ -110,14 +117,14 @@ function draw() {
 
   /**
    * Creating terrain
-   * 
+   *
    * line stroke color
    * rotate X-Axis to make grid look 3D
    * move grid to center
    */
-  stroke('#ededed');
+  stroke("#ededed");
   rotateX(PI / 2.5);
-  translate(-w / 2, -h/2 + 100, 50);
+  translate(-w / 2, -h / 2 + 100, 50);
   for (var y = 0; y < rows - 1; y++) {
     // filling terrain color using rgb sliders
     fill(
@@ -136,3 +143,18 @@ function draw() {
     endShape();
   }
 }
+
+
+function openSpotify() {
+  iframe = document.createElement('iframe');
+  iframe.src = "https://open.spotify.com/embed/playlist/0CqFUkdSPtZQX1m66xAHlL?utm_source=generator&theme=0";
+  iframe.allow="encrypted-media";
+  iframe.width = 352;
+  iframe.height = 352;
+  iframe.x = 1050;
+  iframe.y = 200;
+  spotifyContainer.appendChild(iframe);
+}
+/**
+ * <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0CqFUkdSPtZQX1m66xAHlL?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+ */
