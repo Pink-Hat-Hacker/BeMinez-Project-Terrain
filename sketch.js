@@ -11,7 +11,6 @@
 
 var song;
 var iframe;
-var canvas;
 
 var cols, rows;
 var scl = 15;
@@ -27,8 +26,8 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(800, 800, WEBGL);
-  canvas.parent('spotifyContainer');
+  var canvas = createCanvas(800, 800, WEBGL);
+  canvas.parent("canvasContainer");
 
   song.play();
   amplitude = new p5.Amplitude();
@@ -149,11 +148,9 @@ function openSpotify() {
   iframe = document.createElement('iframe');
   iframe.src = "https://open.spotify.com/embed/playlist/0CqFUkdSPtZQX1m66xAHlL?utm_source=generator&theme=0";
   iframe.allow="encrypted-media";
-  iframe.width = 352;
-  iframe.height = 352;
-  iframe.x = 1050;
-  iframe.y = 200;
-  spotifyContainer.appendChild(iframe);
+  iframe.width = 500;
+  iframe.height = 600;
+  spotifyContainer.append(iframe);
 }
 /**
  * <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0CqFUkdSPtZQX1m66xAHlL?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
