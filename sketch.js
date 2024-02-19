@@ -9,7 +9,7 @@
  * By - Zoë Valladares aka Pink Hat Hacker
  */
 
-var song;
+// var song;
 var iframe;
 
 var cols, rows;
@@ -21,17 +21,18 @@ var terrain = [];
 
 let backgroundColorPicker;
 
-function preload() {
-  song = loadSound("be-minez.mp3");
-}
+// function preload() {
+//   song = loadSound("be-minez.mp3");
+// }
 
 function setup() {
   var canvas = createCanvas(800, 800, WEBGL);
   canvas.parent("canvasContainer");
 
-  song.play();
-  amplitude = new p5.Amplitude();
-  amplitude.setInput(song);
+  // song.play();
+  // amplitude = new p5.Amplitude();
+  // amplitude.setInput(song);
+  // console.log(amplitude);
 
   /**
    * Customize the Canvas and Terrain:
@@ -143,15 +144,23 @@ function draw() {
   }
 }
 
-
 function openSpotify() {
-  iframe = document.createElement('iframe');
-  iframe.src = "https://open.spotify.com/embed/playlist/0CqFUkdSPtZQX1m66xAHlL?utm_source=generator&theme=0";
-  iframe.allow="encrypted-media";
-  iframe.width = 500;
-  iframe.height = 600;
+  iframe = document.createElement("iframe");
+  iframe.src =
+    "https://open.spotify.com/embed/playlist/0CqFUkdSPtZQX1m66xAHlL?utm_source=generator&theme=0";
+  iframe.allow = "encrypted-media";
+  iframe.width = 650;
+  iframe.height = 200;
   spotifyContainer.append(iframe);
 }
+
 /**
  * <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0CqFUkdSPtZQX1m66xAHlL?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+ */
+/**
+ * loudness
+number [float]
+The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.
+
+Example: -5.883
  */
