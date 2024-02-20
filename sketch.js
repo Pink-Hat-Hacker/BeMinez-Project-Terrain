@@ -18,6 +18,7 @@ var songs = [
   "untrust-us",
   "you-werent-there-anymore",
 ];
+var loadedSongs = [];
 var amplitude;
 
 var cols, rows;
@@ -32,9 +33,9 @@ let backgroundColorPicker;
 function preload() {
   // Load all the songs
   for (var i = 0; i < songs.length; i++) {
-    songs[i] = loadSound("music/" + songs[i] + ".mp3");
+    loadedSongs.push(loadSound("music/" + songs[i] + ".mp3"));
   }
-  console.log(songs);
+  console.log(loadedSongs);
 }
 
 function setup() {
@@ -48,6 +49,14 @@ function setup() {
   cols = w / scl;
   rows = h / scl;
   initializeTerrain(cols, rows);
+
+  // Move PlayButtons
+  let buttons = selectAll('.playButton');
+  let yPos = 200;
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].position(850, yPos);
+    yPos += 50;
+  }
 }
 
 function draw() {
@@ -58,19 +67,16 @@ function draw() {
 }
 
 function playSong(index) {
-  // Stop the current song if it's playing
-  if (song) {
-    if (song.isPlaying()) {
-      song.stop();
-    }
+  // Stop any current song from playing
+  if (song && song.isPlaying()) {
+    song.stop();
+    console.log("Stopped playing: " + song.file);
   }
-  // Load and play the selected song
-  song = songs[index];
-  console.log(song);
+  // Play the selected song
+  song = loadedSongs[index];
   song.play();
-  amplitude.setInput(song);
+  console.log("Currently playing: " + songs[index]);
 }
-
 
 function initializeGUI() {
   /**
@@ -109,10 +115,6 @@ function initializeGUI() {
   pAndtInput.position(1050, 140);
   pAtText = createP("Highest Peak and Lowest Trough Value");
   pAtText.position(1050, 100);
-
-  for (let i = 0; i < songs.length; i++) {
-    createButton(songs[i].file, songs[i].file).position(850, 180 + i * 40).mousePressed(selectedSong(i));
-  }
 }
 
 function initializeTerrain(cols, rows) {
@@ -163,7 +165,7 @@ function displayTerrain() {
    */
   stroke("#ededed");
   rotateX(PI / 2.5);
-  translate(-w / 2, -h / 2 + 100, 50);
+  translate(-w / 2, -h / 2 + 150, 50);
   for (var y = 0; y < rows - 1; y++) {
     // filling terrain color using rgb sliders
     fill(
@@ -181,8 +183,4 @@ function displayTerrain() {
     }
     endShape();
   }
-}
-
-function selectedSong(index) {
-  return function() {playSong(index);}
 }
