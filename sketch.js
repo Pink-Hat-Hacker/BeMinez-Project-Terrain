@@ -10,6 +10,16 @@
  */
 
 var song;
+var songs = [
+  "be-minez",
+  "shut-down-entirely",
+  "still-goin",
+  "take-me-home",
+  "untrust-us",
+  "you-werent-there-anymore",
+];
+var loadedSongs = [];
+var amplitude;
 
 var cols, rows;
 var scl = 15;
@@ -21,15 +31,54 @@ var terrain = [];
 let backgroundColorPicker;
 
 function preload() {
-  song = loadSound("be-minez.mp3");
+  // Load all the songs
+  for (var i = 0; i < songs.length; i++) {
+    loadedSongs.push(loadSound("music/" + songs[i] + ".mp3"));
+  }
+  console.log(loadedSongs);
 }
 
 function setup() {
   createCanvas(800, 800, WEBGL);
-  song.play();
   amplitude = new p5.Amplitude();
-  amplitude.setInput(song);
 
+  // Customize the Canvas and Terrain function
+  initializeGUI();
+
+  // Initialize the terrain grid
+  cols = w / scl;
+  rows = h / scl;
+  initializeTerrain(cols, rows);
+
+  // Move PlayButtons
+  let buttons = selectAll('.playButton');
+  let yPos = 200;
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].position(850, yPos);
+    yPos += 50;
+  }
+}
+
+function draw() {
+  background(backgroundColorPicker.color());
+
+  updateTerrain();
+  displayTerrain();
+}
+
+function playSong(index) {
+  // Stop any current song from playing
+  if (song && song.isPlaying()) {
+    song.stop();
+    console.log("Stopped playing: " + song.file);
+  }
+  // Play the selected song
+  song = loadedSongs[index];
+  song.play();
+  console.log("Currently playing: " + songs[index]);
+}
+
+function initializeGUI() {
   /**
    * Customize the Canvas and Terrain:
    *
@@ -59,17 +108,16 @@ function setup() {
   hoverSlider = createSlider(0, 3, 0.05, 0.01);
   hoverSlider.position(850, 140);
   hsText = createP("Hover Speed Slider");
-  hsText.position(850,100);
+  hsText.position(850, 100);
 
   // Z-axis Highest Peak and Lowest Trough inputs
-  pAndtInput = createInput(30);
+  pAndtInput = createInput("30");
   pAndtInput.position(1050, 140);
   pAtText = createP("Highest Peak and Lowest Trough Value");
   pAtText.position(1050, 100);
+}
 
-  cols = w / scl;
-  rows = h / scl;
-
+function initializeTerrain(cols, rows) {
   for (var x = 0; x < cols; x++) {
     terrain[x] = [];
     for (var y = 0; y < rows; y++) {
@@ -78,12 +126,10 @@ function setup() {
   }
 }
 
-function draw() {
-  background(backgroundColorPicker.color());
-  
+function updateTerrain() {
   /**
    * Moving the terrain based on Hover Speed and Music Amplitude
-   * 
+   *
    * get amplitude level
    * get and change hover speed value from slider (flying effect)
    * smooth the terrain using perlin noise()
@@ -107,17 +153,19 @@ function draw() {
     }
     yoff += 0.2;
   }
+}
 
+function displayTerrain() {
   /**
    * Creating terrain
-   * 
+   *
    * line stroke color
    * rotate X-Axis to make grid look 3D
    * move grid to center
    */
-  stroke('#ededed');
+  stroke("#ededed");
   rotateX(PI / 2.5);
-  translate(-w / 2, -h/2 + 100, 50);
+  translate(-w / 2, -h / 2 + 150, 50);
   for (var y = 0; y < rows - 1; y++) {
     // filling terrain color using rgb sliders
     fill(
