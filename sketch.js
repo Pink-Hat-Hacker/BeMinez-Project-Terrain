@@ -50,13 +50,25 @@ function setup() {
   rows = h / scl;
   initializeTerrain(cols, rows);
 
-  // Move PlayButtons
-  let buttons = selectAll('.playButton');
-  let yPos = 200;
+  // Move SongButtons
+  let buttons = selectAll('.songButton');
+  let yPos = 250;
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].position(850, yPos);
     yPos += 50;
   }
+
+  // Move PlayPause Button
+  let playPause = selectAll(".pauseButton");
+  playPause[0].position(850, 200);
+
+  // Move Icons
+  let icons = selectAll('.socialIcons');
+  for (let i = 0; i < icons.length; i++) {
+    icons[i].position(1350, 750);
+  }
+
+
 }
 
 function draw() {
@@ -76,6 +88,16 @@ function playSong(index) {
   song = loadedSongs[index];
   song.play();
   console.log("Currently playing: " + songs[index]);
+}
+
+function togglePlayPause() {
+  if (song && song.isPlaying()) {
+    song.pause()
+    console.log("pause song: " + song.file);
+  } else if (song && !song.isPlaying()) {
+    song.play();
+    console.log("play song: " + song.file);
+  }
 }
 
 function initializeGUI() {
@@ -115,6 +137,8 @@ function initializeGUI() {
   pAndtInput.position(1050, 140);
   pAtText = createP("Highest Peak and Lowest Trough Value");
   pAtText.position(1050, 100);
+
+
 }
 
 function initializeTerrain(cols, rows) {
