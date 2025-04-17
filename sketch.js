@@ -125,6 +125,12 @@ function initializeGUI() {
   blueSlider.position(1050, 80);
   tcpText = createP("Random RGB Terrain Color Picker (kinda)");
   tcpText.position(1050, 0);
+  
+  // Terrain Opacity Sliders and Text
+  opacitySlider = createSlider(0, 255, 100);
+  opacitySlider.position(1350, 40);
+  tcpTextO = createP("Opacity Selector");
+  tcpTextO.position(1350, 0);
 
   // Hover Speed Slider and Text
   hoverSlider = createSlider(0, 3, 0.05, 0.01);
@@ -137,8 +143,6 @@ function initializeGUI() {
   pAndtInput.position(1050, 140);
   pAtText = createP("Highest Peak and Lowest Trough Value");
   pAtText.position(1050, 100);
-
-
 }
 
 function initializeTerrain(cols, rows) {
@@ -196,7 +200,7 @@ function displayTerrain() {
       random(redSlider.value() - 50, redSlider.value() + 50),
       random(greenSlider.value() - 50, greenSlider.value() + 50),
       random(blueSlider.value() - 50, blueSlider.value() + 50),
-      100
+      opacitySlider.value()
     );
 
     // terrain grid vertex shape
